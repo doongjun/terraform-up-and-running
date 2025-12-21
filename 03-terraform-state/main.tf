@@ -4,11 +4,6 @@ provider "aws" {
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "terraform-up-and-running-state-dongjunkim"
-
-  # 버킷 삭제 방지 설정
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" {
@@ -43,10 +38,6 @@ resource "aws_dynamodb_table" "terraform_locks" {
 
 terraform {
   backend "s3" {
-    bucket         = "terraform-up-and-running-state-dongjunkim"
-    key            = "global/s3/terraform.tfstate"
-    region         = "ap-northeast-2"
-    dynamodb_table = "terraform-up-and-running-locks"
-    encrypt        = true
+    key = "example/terraform.tfstate"
   }
 }
